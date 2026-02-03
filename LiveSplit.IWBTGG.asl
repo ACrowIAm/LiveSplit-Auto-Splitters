@@ -147,7 +147,7 @@ split
             return false;
         }
 
-        if (current.stage3 == 1 && vars.stage3SplitDelay > 0 && currentTime >= vars.stage3SplitDelay + 0984.0) // Leave this time alone as the run should always end after around 0.975 seconds after the trigger.
+        if (current.stage3 == 1 && vars.stage3SplitDelay > 0 && currentTime >= vars.stage3SplitDelay + 0988.0) // Leave this time alone as the run should always end after around 0.975 seconds after the trigger.
         {
             vars.stage3SplitDelay = 0.0;
             vars.lastSplitTime = currentTime;
@@ -184,6 +184,7 @@ reset
 
     return false;        
 }
+
 
 
 

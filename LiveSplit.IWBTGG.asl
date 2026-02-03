@@ -170,6 +170,7 @@ reset
     
     {
 
+        // Set variables back to default
         vars.stage1GateTime = 0.0;
         vars.stage2GateTime = 0.0;
         vars.stage1GateUsed = false;
@@ -185,3 +186,4 @@ reset
     return false;        
 
 }
+

@@ -169,7 +169,6 @@ reset
     if (vars.startCheck == 1 && old.reset != 1 && current.reset == 1)   
     
     {
-
         // Set variables back to default
         vars.stage1GateTime = 0.0;
         vars.stage2GateTime = 0.0;
@@ -186,4 +185,5 @@ reset
     return false;        
 
 }
+
 

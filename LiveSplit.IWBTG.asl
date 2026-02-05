@@ -5,6 +5,7 @@ state("stdrt")
 {
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x48384, 0x18, 0x1EC;
+    int beginningxPos: "stdrt.exe", 0x48384, 0xA0, 0x18, 0x4C;
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
     int dracula: "stdrt.exe", 0x4837C, 0x268, 0x3C;            
@@ -34,6 +35,8 @@ startup
 init
 {   
     // Variables  
+    vars.splitGate = 0;
+    vars.splitGateFrames = 21;    
     vars.selecterDelay = 0;          
     vars.selecterFlag = 0;
     vars.glitchlessRoute = 0;
@@ -44,7 +47,7 @@ init
 
 update
 {
-    // Selecter delay/flag logic   
+// Selecter delay/flag logic   
 if (current.frameNumber == 1)
     {
         if (old.frameNumber != 1)
@@ -73,6 +76,16 @@ if (current.frameNumber == 1)
     {
         vars.selecterFlag = 0;
     }
+
+// Split gate logic
+if (old.reset != 2 && current.reset == 2)
+    {
+        vars.splitGate = vars.splitGateFrames;
+    }
+    else if (vars.splitGate > 0)
+    {
+        vars.splitGate--;
+    }    
 
 // Setting toggle logic
 if (settings["glitchlessroute1"]) { 
@@ -134,6 +147,10 @@ start
 
 split
 {
+        // Blocks splits for 21 frames
+        if (vars.splitGate > 0)
+                return false;      
+                  
         // Glitchless Route 1 (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
 
         if (vars.glitchlessRoute == 1 && timer.CurrentSplitIndex == 0 && old.miketyson != 1 && current.miketyson == 1) {
@@ -287,5 +304,4 @@ reset
     // Reset logic    
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
         return true;        
-
 }

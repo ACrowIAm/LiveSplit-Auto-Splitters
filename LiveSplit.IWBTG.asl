@@ -304,4 +304,3 @@ reset
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
         return true;        
 }
-

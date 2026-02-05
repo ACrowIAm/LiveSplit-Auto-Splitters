@@ -184,11 +184,3 @@ reset
 
     return false;        
 }
-
-
-
-
-
-
-
-

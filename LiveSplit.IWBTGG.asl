@@ -15,8 +15,8 @@ state("iwbtggv1d2b")
 startup
 {
     // Settings creation
-    settings.Add("splittiminggroup", false, "Split Timing");        
-    settings.Add("splittiming1", false, "Boss Door Entry", "splittiminggroup");  
+    settings.Add("splittiminggroup", true, "Split Timing");        
+    settings.Add("splittiming1", true, "Boss Door Entry", "splittiminggroup");  
     settings.Add("splittiming2", false, "Forth Beep", "splittiminggroup"); 
     settings.Add("splittiming3", false, "Completion Time", "splittiminggroup");     
     settings.Add("splittiming4", false, "World Map", "splittiminggroup");                                 
@@ -184,4 +184,5 @@ reset
 
     return false;        
 }
+
 

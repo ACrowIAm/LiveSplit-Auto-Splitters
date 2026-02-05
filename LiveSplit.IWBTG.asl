@@ -259,7 +259,7 @@ split
              
         // All Glitchless Routes (Dragon)   
 
-        if (timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         }     
 
@@ -287,4 +287,5 @@ reset
     // Reset logic    
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
         return true;        
+
 }

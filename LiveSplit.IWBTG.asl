@@ -18,9 +18,9 @@ state("stdrt")
 startup
 {
     // Settings creation      
-    settings.Add("routesgroup", true, "Routes (All Categories)");
+    settings.Add("routesgroup", false, "Routes (All Categories)");
     settings.Add("settingsgroup", true, "Settings");      
-    settings.Add("glitchlessroute1", true, "Glitchless Route 1 (T,B,D,K,W,M)", "routesgroup");
+    settings.Add("glitchlessroute1", false, "Glitchless Route 1 (T,B,D,K,W,M)", "routesgroup");
     settings.Add("glitchlessroute2", false, "Glitchless Route 2 (T,B,D,K,M,W)", "routesgroup");
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
@@ -304,3 +304,4 @@ reset
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
         return true;        
 }
+

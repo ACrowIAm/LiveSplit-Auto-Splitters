@@ -5,7 +5,6 @@ state("stdrt")
 {
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x48384, 0x18, 0x1EC;
-    int beginningxPos: "stdrt.exe", 0x48384, 0xA0, 0x18, 0x4C;
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
     int dracula: "stdrt.exe", 0x4837C, 0x268, 0x3C;            
@@ -305,3 +304,4 @@ reset
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
         return true;        
 }
+

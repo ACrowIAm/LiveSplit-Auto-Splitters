@@ -1,18 +1,19 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.0.0)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.1.4)
 
 
 state("stdrt")
 {
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x48384, 0x18, 0x1EC;
+    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x108;      
+    int startReset: "stdrt.exe", 0x4837C, 0x140, 0xB39;         
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
     int dracula: "stdrt.exe", 0x4837C, 0x268, 0x3C;            
     int kraidgief: "stdrt.exe", 0x4837C, 0x268, 0x40; 
     int wily: "stdrt.exe", 0x4837C, 0x268, 0x34;      
     int motherbrain: "stdrt.exe", 0x4837C, 0x268, 0x30; 
-    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x108;       
-    int reset: "stdrt.exe", 0x4837C, 0x140, 0xB39;           
+    int theguy: "stdrt.exe", 0x48380, 0x8D0, 0xA38, 0x242;                    
 }
 
 startup
@@ -25,9 +26,7 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");
-    settings.Add("glitchesroute", false, "Glitches Route", "routesgroup");  
-    settings.Add("finalsplit", false, "Enable Final Split (Must retime)", "settingsgroup");
-    settings.SetToolTip("finalsplit", "Retime amount is (3.020) seconds");          
+    settings.Add("glitchesroute", false, "Glitches Route", "routesgroup");    
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");                               
 }
 
@@ -35,56 +34,16 @@ init
 {   
     // Variables  
     vars.splitGate = 0;
-    vars.splitGateFrames = 21;    
+    vars.splitGateFrames = 48;    
     vars.selecterDelay = 0;          
     vars.selecterFlag = 0;
     vars.glitchlessRoute = 0;
     vars.glitchesRoute = false; 
-    vars.finalSplit = false;    
     vars.automaticResets = true;       
 }
 
 update
 {
-// Selecter delay/flag logic   
-if (current.frameNumber == 1)
-    {
-        if (old.frameNumber != 1)
-        {
-            vars.selecterDelay = 4; 
-        }
-        else if (vars.selecterDelay > 0)
-        {
-            vars.selecterDelay--;
-            if (vars.selecterDelay == 0)
-            {
-                vars.selecterFlag = 0;
-            }
-        }
-    }
-    else
-    {
-        vars.selecterDelay = 0;
-    }
-
-    if (current.selecter == 239 && current.frameNumber == 6)
-    {
-        vars.selecterFlag = 1;
-    }
-    else if (current.selecter == 207 && current.frameNumber == 6)
-    {
-        vars.selecterFlag = 0;
-    }
-
-// Split gate logic
-if (old.reset != 2 && current.reset == 2)
-    {
-        vars.splitGate = vars.splitGateFrames;
-    }
-    else if (vars.splitGate > 0)
-    {
-        vars.splitGate--;
-    }    
 
 // Setting toggle logic
 if (settings["glitchlessroute1"]) { 
@@ -112,15 +71,7 @@ if (settings["glitchesroute"]) {
     }
     else {
         vars.glitchesRoute = false;
-    }    
-    
-if (settings["finalsplit"]) {
-        vars.finalSplit = true;
-
-    }
-    else {
-        vars.finalSplit = false;
-    }    
+    }     
 
 if (settings["automaticresets"]) {
         vars.automaticResets = true;
@@ -128,25 +79,67 @@ if (settings["automaticresets"]) {
     }
     else {
         vars.automaticResets = false;
-    }    
+    }            
+
+// Split gate logic
+bool resetByFlag  = (old.startReset != 2 && current.startReset == 2);
+bool resetByFrame = (old.frameNumber != 1 && current.frameNumber == 1);
+
+if (resetByFlag || resetByFrame)
+    {
+        vars.splitGate = vars.splitGateFrames;
+    }
+    else if (vars.splitGate > 0)
+    {
+        vars.splitGate--;
+    }  
+            
+// selecter delay/flag logic   
+if (current.frameNumber == 1)
+    {
+        if (old.frameNumber != 1)
+        {
+            vars.selecterDelay = 4; 
+        }
+        else if (vars.selecterDelay > 0)
+        {
+            vars.selecterDelay--;
+            if (vars.selecterDelay == 0)
+            {
+                vars.selecterFlag = 0;
+            }
+        }
+    }
+    else
+    {
+        vars.selecterDelay = 0;
+    }
+
+    if (current.selecter == 239 && current.frameNumber == 6)
+    {
+        vars.selecterFlag = 1;
+    }
+    else if (current.selecter == 207 && current.frameNumber == 6)
+    {
+        vars.selecterFlag = 0;
+    }  
 
     // Debug
     // print("Glitchless Route: " + vars.glitchlessRoute.ToString());
     // print("Glitches Route: " + vars.glitchesRoute.ToString());
-    // print("Enable Final Split: " + vars.finalSplit.ToString());    
     // print("Automatic Resets: " + vars.automaticResets.ToString());    
 }
 
 start
 {
     // Start logic            
-    if (vars.selecterFlag == 1 && old.frameNumber != 1 && current.frameNumber == 1)
+    if (vars.selecterFlag == 1 && old.startReset != 2 && current.startReset == 2)
 	        return true;	
 }
 
 split
 {
-        // Blocks splits for 21 frames
+        // Blocks splits for 48 frames
         if (vars.splitGate > 0)
                 return false;      
                   
@@ -287,13 +280,13 @@ split
 
         // All Glitchless Routes (The Guy)    
 
-        if (vars.glitchlessRoute > 0 && vars.finalSplit == true && timer.CurrentSplitIndex == 7 && old.frameNumber != 13 && current.frameNumber == 13) {
+        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == 7 && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }      
 
         // Glitches Route (The Guy)           
 
-        if (vars.glitchesRoute == true && vars.finalSplit == true && timer.CurrentSplitIndex == 6 && old.frameNumber != 13 && current.frameNumber == 13) {
+        if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 6 && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }                                                                                                       
 }    
@@ -301,8 +294,6 @@ split
 reset
 {
     // Reset logic    
-    if (vars.automaticResets == true && vars.selecterFlag == 1 && old.reset != 2 && current.reset == 2)
+    if (vars.automaticResets == true && vars.selecterFlag == 1 && old.startReset != 2 && current.startReset == 2)
         return true;        
 }
-
-

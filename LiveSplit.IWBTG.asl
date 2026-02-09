@@ -4,7 +4,6 @@
 state("stdrt")
 {
     // Pointer addresses      
-	// test
     int frameNumber: "stdrt.exe", 0x48384, 0x18, 0x1EC;
     int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x108;      
     int startReset: "stdrt.exe", 0x4837C, 0x140, 0xB39;         
@@ -299,3 +298,4 @@ reset
         return true;        
 
 }
+

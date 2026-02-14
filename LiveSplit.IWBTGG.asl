@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.0.0)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.0.2)
 
 
 state("iwbtggv1d2b")
@@ -28,8 +28,6 @@ init
     vars.startCheck = 0;       
     vars.stage1GateTime = 0.0;
     vars.stage2GateTime = 0.0;
-    vars.stage1GateUsed = false;
-    vars.stage2GateUsed = false;
     vars.stage1SplitDelay = 0.0;
     vars.stage2SplitDelay = 0.0;
     vars.stage3SplitDelay = 0.0; 
@@ -83,10 +81,9 @@ split
 
     if (timer.CurrentSplitIndex == 0)
         {
-        if (vars.stage1GateUsed == false && old.stageEnter != 1 && current.stageEnter == 1)
+        if (old.stageEnter != 1 && current.stageEnter == 1)
         {
-            vars.stage1GateTime = currentTime;
-            vars.stage1GateUsed = true;        
+            vars.stage1GateTime = currentTime;      
         }
 
         bool stage1Allowed =
@@ -112,10 +109,9 @@ split
     // Stage 2 split logic
     if (timer.CurrentSplitIndex == 1)
         {
-        if (vars.stage2GateUsed == false && old.stageEnter != 1 && current.stageEnter == 1)
+        if (old.stageEnter != 1 && current.stageEnter == 1)
         {
-            vars.stage2GateTime = currentTime;
-            vars.stage2GateUsed = true;        
+            vars.stage2GateTime = currentTime;     
         }
 
         bool stage2Allowed =
@@ -171,9 +167,7 @@ reset
     {
         // Sets variables back to default
         vars.stage1GateTime = 0.0;
-        vars.stage2GateTime = 0.0;
-        vars.stage1GateUsed = false;
-        vars.stage2GateUsed = false;   
+        vars.stage2GateTime = 0.0; 
         vars.stage1SplitDelay = 0.0;       
         vars.stage2SplitDelay = 0.0;      
         vars.stage3SplitDelay = 0.0;

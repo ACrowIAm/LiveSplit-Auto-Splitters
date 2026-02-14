@@ -27,7 +27,7 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
-    settings.Add("glitchesroute", false, "Glitches Route", "routesgroup");           
+    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");           
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
     settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");               
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "settingsgroup");    
@@ -439,3 +439,4 @@ reset
 
     return false;        
 }
+

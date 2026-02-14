@@ -27,7 +27,7 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
-    settings.Add("regularglitchesroute", false, "Regular Glitches Route", "routesgroup");           
+    settings.Add("glitchesroute", false, "Glitches Route", "routesgroup");           
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
     settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");               
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "settingsgroup");    
@@ -80,7 +80,7 @@ if (settings["glitchlessroute1"]) {
         vars.glitchlessRoute = 0;
     }  
 
-if (settings["regularglitchesroute"]) {
+if (settings["glitchesroute"]) {
         vars.glitchesRoute = true;
 
     }
@@ -173,7 +173,7 @@ if (current.frameNumber == 1)
 
     // Debug
     // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    // print("Regular Glitches Route: " + vars.glitchesRoute.ToString());    
+    // print("Glitches Route: " + vars.glitchesRoute.ToString());    
     // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());    
     // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
     // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
@@ -439,3 +439,4 @@ reset
 
     return false;        
 }
+

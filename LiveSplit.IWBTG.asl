@@ -451,5 +451,3 @@ reset
 
     return false;        
 }
-
-

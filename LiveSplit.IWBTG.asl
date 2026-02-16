@@ -47,14 +47,14 @@ init
     vars.splitGateFrames = 48;    
     vars.selecterDelay = 0;          
     vars.selecterFlag = 0;
-    vars.glitchlessRoute = 1;        
+    vars.glitchlessRoute = 0;        
     vars.glitchesRoute = false;    
     vars.logicpqGlitchesRoute = false;     
     vars.tenshotsDragonSplit = false;  
-    vars.tesDragonSplit = true;      
+    vars.tesDragonSplit = false;      
     vars.logicpqDragonSplit = false;
     vars.logicpqDragonSplitDelay = 0.0;         
-    vars.automaticResets = true;      
+    vars.automaticResets = false;      
 }
 
 update
@@ -451,4 +451,5 @@ reset
 
     return false;        
 }
+
 

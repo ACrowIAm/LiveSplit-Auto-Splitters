@@ -377,7 +377,6 @@ split
 	        return true;
         }         
 
-
         // LogicPQ All Glitcheless Routes (Dragon)         
 
         if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
@@ -452,3 +451,4 @@ reset
 
     return false;        
 }
+

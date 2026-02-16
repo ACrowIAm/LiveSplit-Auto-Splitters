@@ -302,7 +302,7 @@ split
 	        return true;           
         }         
 
-        // Regular Glitches Route (Gief, Mother Brain, Wily, Dracula, Tyson, Birdo) 
+        // Glitches Route (Gief, Mother Brain, Wily, Dracula, Tyson, Birdo) 
 
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
 	        return true; 
@@ -353,13 +353,13 @@ split
 	        return true;
         }                        
 
-        // tenshots Regular Glitches Route (Dragon)
+        // tenshots Glitches Route (Dragon)
 
         if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         } 
 
-        // Tesivonius Regular Glitches Route (Dragon)   
+        // Tesivonius Glitches Route (Dragon)   
 
         if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50010) {
 	        return true;
@@ -410,7 +410,7 @@ split
 	        return true;     
         }      
 
-        // Regular Glitches Route (The Guy)           
+        // Glitches Route (The Guy)           
 
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 7 && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
@@ -439,3 +439,4 @@ reset
 
     return false;        
 }
+

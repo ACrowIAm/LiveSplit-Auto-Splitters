@@ -38,7 +38,7 @@ startup
     settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
     settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");               
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
-    settings.Add("warning1", true, "IMPORTANT: Make sure you only select ONE route, or Dragon setting at once!");                               
+    settings.Add("warning1", true, "IMPORTANT: Make sure you only select ONE route, or split setting at once!");                               
 }
 
 init
@@ -452,4 +452,5 @@ reset
 
     return false;        
 }
+
 

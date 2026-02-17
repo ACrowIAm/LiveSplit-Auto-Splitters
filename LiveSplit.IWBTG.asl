@@ -21,6 +21,7 @@ startup
 {
     // Settings creation      
     settings.Add("routesgroup", true, "Routes (All Categories)");
+    settings.Add("splitsgroup", true, "Splits");         
     settings.Add("settingsgroup", true, "Settings");      
     settings.Add("glitchlessroute1", true, "Glitchless Route 1 (T,B,D,K,W,M)", "routesgroup");
     settings.Add("glitchlessroute2", false, "Glitchless Route 2 (T,B,D,K,M,W)", "routesgroup");
@@ -30,14 +31,14 @@ startup
     settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");           
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
     settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");               
-    settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "settingsgroup");    
+    settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
     settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight");   
-    settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "settingsgroup");  
+    settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
     settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies");  
-    settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "settingsgroup");  
+    settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
     settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");               
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
-    settings.Add("warning1", true, "IMPORTANT: Make sure you only select ONE route, or Dragon setting at once!");                                 
+    settings.Add("warning1", true, "IMPORTANT: Make sure you only select ONE route, or Dragon setting at once!");                               
 }
 
 init
@@ -451,3 +452,4 @@ reset
 
     return false;        
 }
+

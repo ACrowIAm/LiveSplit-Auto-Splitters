@@ -219,7 +219,7 @@ split
         if (vars.splitGate > 0)
                 return false;      
 
-        // For debounce
+        // For debounces
         double currentTime = timer.CurrentTime.RealTime.GetValueOrDefault().TotalMilliseconds;                 
                   
         // Glitchless Route 1 (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
@@ -585,3 +585,4 @@ reset
 
     return false;        
 }
+

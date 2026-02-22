@@ -436,7 +436,20 @@ split
 
         if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }                              
+        }     
+
+        // For Tesivonius LogicPQ Glitchless Route (Dragon)         
+
+        if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.logicpqDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.logicpqDragonSplitDelay > 0 &&
+                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
+        {                  
+                vars.logicpqDragonSplitDelay = 0.0;     
+                return true;        
+        }                                     
 
         // tenshots Glitches Route (Dragon)
 
@@ -472,20 +485,7 @@ split
 
         if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }   
-        
-        // For Tesivonius LogicPQ Glitchless Route (Dragon)         
-
-        if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-                vars.logicpqDragonSplitDelay = currentTime;
-	        return false;
-        }                
-                if (vars.logicpqDragonSplitDelay > 0 &&
-                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
-        {                  
-                vars.logicpqDragonSplitDelay = 0.0;     
-                return true;        
-        }         
+        }        
 
         // For Tesivonius LogicPQ Glitches Route (Dragon)         
 
@@ -585,6 +585,3 @@ reset
 
     return false;        
 }
-
-
-

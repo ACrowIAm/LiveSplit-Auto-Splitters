@@ -215,7 +215,7 @@ start
 
 split
 {
-        // Blocks splits for 48 frames
+        // Blocks splits for 48 frames.
         if (vars.splitGate > 0)
                 return false;      
 
@@ -576,7 +576,7 @@ reset
     if (vars.automaticResets == true && vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
 
     {
-        // Sets variables back to default      
+        // Sets variables back to default.      
         vars.logicpqDragonSplitDelay = 0.0;      
 
         return true;
@@ -585,3 +585,4 @@ reset
 
     return false;        
 }
+

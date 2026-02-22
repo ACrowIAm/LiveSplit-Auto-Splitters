@@ -513,7 +513,7 @@ split
                 return true;        
         }           
 
-       // LogicPQ Glitches Route (Dragon)         
+        // LogicPQ Glitches Route (Dragon)         
 
         if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
@@ -526,7 +526,7 @@ split
                 return true;        
         }        
 
-       // For LogicPQ Glitches Route (Dragon)         
+        // For LogicPQ Glitches Route (Dragon)         
 
         if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
@@ -585,3 +585,4 @@ reset
 
     return false;        
 }
+

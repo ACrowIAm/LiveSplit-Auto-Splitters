@@ -28,13 +28,10 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
-    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");  
-    settings.Add("tesglitchlessroute", false, "Tesivonius Glitchless Route (T,B,D,K,W,M)", "routesgroup");  
-    settings.SetToolTip("tesglitchlessroute", "Has his 10000 km split");  
-    settings.Add("tesglitchesroute", false, "Tesivonius Glitches Route (K,M,W,D,T,B)", "routesgroup");  
-    settings.SetToolTip("tesglitchesroute", "Has his 10000 km split");                                        
+    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");                                         
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
-    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");               
+    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");     
+    settings.Add("testenthousandkmsplit", false, "Tesivonius 10000km Split", "splitsgroup");                  
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
     settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
@@ -54,8 +51,9 @@ init
     vars.selecterFlag = 0;
     vars.glitchlessRoute = 0;        
     vars.glitchesRoute = false;
-    vars.tesGlitchlessRoute = false; 
-    vars.tesGlitchesRoute = false;               
+    vars.dragonSplitIndex = 0;     
+    vars.theguySplitIndex = 0;     
+    vars.tesTenThousandkmSplit = false;              
     vars.logicpqGlitchesRoute = false;     
     vars.tenshotsDragonSplit = false;  
     vars.tesDragonSplit = false;      
@@ -95,20 +93,16 @@ if (settings["glitchesroute"]) {
         vars.glitchesRoute = false;
     }             
 
-if (settings["tesglitchlessroute"]) {
-        vars.tesGlitchlessRoute = true;
+if (settings["testenthousandkmsplit"]) {
+        vars.dragonSplitIndex = 7;   
+        vars.theguySplitIndex = 8;  
+        vars.tesTenThousandkmSplit = true;             
 
     }
     else {
-        vars.tesGlitchlessRoute = false;
-    }   
-
-if (settings["tesglitchesroute"]) {
-        vars.tesGlitchesRoute = true;
-
-    }
-    else {
-        vars.tesGlitchesRoute = false;
+        vars.dragonSplitIndex = 6;  
+        vars.theguySplitIndex = 7;                
+        vars.tesTenThousandkmSplit = false;        
     }       
 
 if (settings["logicpqglitchesroute"]) {
@@ -195,15 +189,16 @@ if (current.frameNumber == 1)
     }  
 
     // Debug
-    // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    // print("Glitches Route: " + vars.glitchesRoute.ToString());    
-    // print("Tesivonius Glitchless Route: " + vars.tesGlitchlessRoute.ToString());        
-    // print("Tesivonius Glitches Route: " + vars.tesGlitchesRoute.ToString());      
-    // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());    
-    // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
-    // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
-    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    // print("Automatic Resets: " + vars.automaticResets.ToString());             
+    print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
+    print("Glitches Route: " + vars.glitchesRoute.ToString());    
+    print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());        
+    print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
+    print("The Guy Split Index: " + vars.theguySplitIndex.ToString());     
+    print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());    
+    print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
+    print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
+    print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
+    print("Automatic Resets: " + vars.automaticResets.ToString());             
 }
 
 start
@@ -221,6 +216,7 @@ split
 
         // For debounces
         double currentTime = timer.CurrentTime.RealTime.GetValueOrDefault().TotalMilliseconds;                 
+                  
                   
         // Glitchless Route 1 (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
 
@@ -346,55 +342,7 @@ split
 	}  
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 5 && old.mechabirdo != 1 && current.mechabirdo == 1) {
 	        return true;            
-	}    
-
-        // Tesivonius Glitchless Route (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
-
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 0 && old.miketyson != 1 && current.miketyson == 1) {
-	        return true; 
-	}
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 1 && old.mechabirdo != 1 && current.mechabirdo == 1) {
-	        return true;            
-	}
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 2 && old.dracula != 1 && current.dracula == 1) {
-	        return true;            
-	}                
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 3 && old.kraidgief != 1 && current.kraidgief == 1) {
-	        return true;            
-	}     
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 4 && old.wily != 1 && current.wily == 1) {
-	        return true;            
-	}
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 5 && old.motherbrain != 1 && current.motherbrain == 1) {
-	        return true;            
-        }        
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
-	        return true;            
-        }         
-
-        // Tesivonius Glitches Route (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
-
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
-	        return true; 
-	}    
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
-	        return true;           
-        }              
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 2 && old.wily != 1 && current.wily == 1) {
-	        return true;           
-        }  
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 3 && old.dracula != 1 && current.dracula == 1) {
-	        return true;            
-	}    
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 4 && old.miketyson != 1 && current.miketyson == 1) {
-	        return true;            
-	}  
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 5 && old.mechabirdo != 1 && current.mechabirdo == 1) {
-	        return true;            
-	}       
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber== 9) {
-	        return true;            
-	}                                                   
+	}                                                     
 
         // LogicPQ Glitches Route (Gief, Wily, Dracula, Tyson, Birdo) 
 
@@ -414,54 +362,29 @@ split
 	        return true;            
 	}                                    
 
+        // Tesivonius 10000km Split
+
+        if (vars.tesTenThousandkmSplit == true && vars.logicpqGlitchesRoute == false && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
+	        return true;            
+	}  
+
         // tenshots All Glitchless Routes (Dragon)
         
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
-        }  
-
-        // tenshots Tesivonius Glitchless Route (Dragon)
-        
-        if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 7 && old.frameNumber != 10 && current.frameNumber == 10) {
-	        return true;
-        }          
+        }         
 
         // Tesivonius All Glitchless Routes (Dragon)   
 
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }      
-
-        // Tesivonius Tesivonius Glitchless Route (Dragon)   
-
-        if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-	        return true;
-        }     
-
-        // For Tesivonius LogicPQ Glitchless Route (Dragon)         
-
-        if (vars.tesGlitchlessRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-                vars.logicpqDragonSplitDelay = currentTime;
-	        return false;
-        }                
-                if (vars.logicpqDragonSplitDelay > 0 &&
-                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
-        {                  
-                vars.logicpqDragonSplitDelay = 0.0;     
-                return true;        
-        }                                     
+        }                                                  
 
         // tenshots Glitches Route (Dragon)
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
-        } 
-
-        // tenshots Tesivonius Glitches Route (Dragon)
-        
-        if (vars.tesGlitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 7 && old.frameNumber != 10 && current.frameNumber == 10) {
-	        return true;
-        }            
+        }         
 
         // tenshots LogicPQ Glitches Route (Dragon)
 
@@ -471,38 +394,19 @@ split
 
         // Tesivonius Glitches Route (Dragon)   
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }
-
-        // Tesivonius Tesivonius Glitches Route (Dragon)   
-
-        if (vars.tesGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-	        return true;
-        }          
 
         // Tesivonius LogicPQ Glitches Route (Dragon)   
 
         if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }        
-
-        // For Tesivonius LogicPQ Glitches Route (Dragon)         
-
-        if (vars.tesGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-                vars.logicpqDragonSplitDelay = currentTime;
-	        return false;
-        }                
-                if (vars.logicpqDragonSplitDelay > 0 &&
-                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
-        {                  
-                vars.logicpqDragonSplitDelay = 0.0;     
-                return true;        
-        }                   
+        }                          
 
         // LogicPQ All Glitchless Routes (Dragon)         
 
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -515,7 +419,7 @@ split
 
         // LogicPQ Glitches Route (Dragon)         
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -541,27 +445,15 @@ split
 
         // All Glitchless Routes (The Guy)    
 
-        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == 7 && old.theguy != 4500 && current.theguy == 4500) {
+        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == vars.theguySplitIndex && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }            
 
         // Glitches Route (The Guy)           
 
-        if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 7 && old.theguy != 4500 && current.theguy == 4500) {
+        if (vars.glitchesRoute == true && timer.CurrentSplitIndex == vars.theguySplitIndex && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
-        }  
-
-        // For Tesivonius Glitchless Route (The Guy)    
-
-        if (vars.tesGlitchlessRoute == true && timer.CurrentSplitIndex == 8 && old.theguy != 4500 && current.theguy == 4500) {
-	        return true;     
-        }              
-
-        // For Tesivonius Glitches Route (The Guy)    
-
-        if (vars.tesGlitchesRoute == true && timer.CurrentSplitIndex == 8 && old.theguy != 4500 && current.theguy == 4500) {
-	        return true;     
-        }              
+        }                           
 
         // For LogicPQ Glitches Route (The Guy)           
 

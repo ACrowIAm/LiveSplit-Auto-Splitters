@@ -46,9 +46,9 @@ init
 {   
     // Variables  
     vars.splitGate = 0;
-    vars.splitGateFrames = 48;    
+    vars.splitGateFrames = 48; 
+    vars.selecterFlag = 0;       
     vars.selecterDelay = 0;          
-    vars.selecterFlag = 0;
     vars.glitchlessRoute = 0;        
     vars.glitchesRoute = false;
     vars.dragonSplitIndex = 0;     
@@ -158,7 +158,16 @@ if (resetByNextFrame || resetByCurrentFrame)
         vars.splitGate--;
     }  
             
-// Selecter delay/flag logic   
+// Selecter flag/delay logic 
+if (current.selecter == 239 && current.frameNumber == 6)
+    {
+        vars.selecterFlag = 1;
+    }
+    else if (current.selecter == 207 && current.frameNumber == 6)
+    {
+        vars.selecterFlag = 0;
+    }  
+
 if (current.frameNumber == 1)
     {
         if (old.frameNumber != 1)
@@ -179,26 +188,17 @@ if (current.frameNumber == 1)
         vars.selecterDelay = 0;
     }
 
-    if (current.selecter == 239 && current.frameNumber == 6)
-    {
-        vars.selecterFlag = 1;
-    }
-    else if (current.selecter == 207 && current.frameNumber == 6)
-    {
-        vars.selecterFlag = 0;
-    }  
-
     // Debug
-    print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    print("Glitches Route: " + vars.glitchesRoute.ToString());    
-    print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());        
-    print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
-    print("The Guy Split Index: " + vars.theguySplitIndex.ToString());     
-    print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());    
-    print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
-    print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
-    print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    print("Automatic Resets: " + vars.automaticResets.ToString());             
+    // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
+    // print("Glitches Route: " + vars.glitchesRoute.ToString());     
+    // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
+    // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
+    // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
+    // print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
+    // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
+    // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
+    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
+    // print("Automatic Resets: " + vars.automaticResets.ToString());             
 }
 
 start

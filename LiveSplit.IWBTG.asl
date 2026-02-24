@@ -370,43 +370,43 @@ split
 
         // tenshots All Glitchless Routes (Dragon)
         
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         }         
 
         // Tesivonius All Glitchless Routes (Dragon)   
 
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }                                                  
 
         // tenshots Glitches Route (Dragon)
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         }         
 
-        // tenshots LogicPQ Glitches Route (Dragon)
+        // tenshots For LogicPQ Glitches Route (Dragon)
 
-        if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == true && vars.tesDragonSplit == false && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 5 && old.frameNumber != 10 && current.frameNumber == 10) {
+        if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == 5 && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         }         
 
         // Tesivonius Glitches Route (Dragon)   
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }
 
-        // Tesivonius LogicPQ Glitches Route (Dragon)   
+        // Tesivonius For LogicPQ Glitches Route (Dragon)   
 
-        if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == true && vars.logicpqDragonSplit == false && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.logicpqGlitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }                          
 
         // LogicPQ All Glitchless Routes (Dragon)         
 
-        if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -419,7 +419,7 @@ split
 
         // LogicPQ Glitches Route (Dragon)         
 
-        if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -430,9 +430,9 @@ split
                 return true;        
         }        
 
-        // For LogicPQ Glitches Route (Dragon)         
+        // LogicPQ For LogicPQ Glitches Route (Dragon)         
 
-        if (vars.logicpqGlitchesRoute == true && vars.tenshotsDragonSplit == false && vars.tesDragonSplit == false && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.logicpqGlitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                

@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.3.8)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.4.1)
 
 
 state("stdrt")
@@ -30,12 +30,14 @@ startup
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
     settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");                                         
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
-    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in Settings for his timing");     
+    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in the settings for his timing.");     
     settings.Add("testenthousandkmsplit", false, "Tesivonius 10000km Split", "splitsgroup");                  
-    settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
-    settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight");   
+    settings.Add("tenshotsdragonsplit", false, " tenshots Dragon Split", "splitsgroup");    
+    settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight.");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
-    settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies");  
+    settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies.");  
+    settings.Add("bogandragonsplit", false, "Bogan Dragon Split", "splitsgroup");  
+    settings.SetToolTip("bogandragonsplit", "Splits where he splits");      
     settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
     settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");               
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
@@ -56,9 +58,11 @@ init
     vars.tesTenThousandkmSplit = false;              
     vars.logicpqGlitchesRoute = false;     
     vars.tenshotsDragonSplit = false;  
-    vars.tesDragonSplit = false;      
+    vars.tesDragonSplit = false;     
+    vars.boganDragonSplit = false;
+    vars.boganDragonSplitDelay = 0.0;      
     vars.logicpqDragonSplit = false;
-    vars.logicpqDragonSplitDelay = 0.0;         
+    vars.logicpqDragonSplitDelay = 0.0;             
     vars.automaticResets = false;      
 }
 
@@ -129,6 +133,14 @@ if (settings["tesdragonsplit"]) {
         vars.tesDragonSplit = false;
     }      
 
+if (settings["bogandragonsplit"]) {
+        vars.boganDragonSplit = true;
+
+    }
+    else {
+        vars.boganDragonSplit = false;
+    }       
+
 if (settings["logicpqdragonsplit"]) {
         vars.logicpqDragonSplit = true;
 
@@ -189,16 +201,17 @@ if (current.frameNumber == 1)
     }
 
     // Debug
-    // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    // print("Glitches Route: " + vars.glitchesRoute.ToString());     
-    // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
-    // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
-    // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
-    // print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
-    // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
-    // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
-    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    // print("Automatic Resets: " + vars.automaticResets.ToString());             
+    print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
+    print("Glitches Route: " + vars.glitchesRoute.ToString());     
+    print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
+    print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
+    print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
+    print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
+    print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
+    print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
+    print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
+    print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
+    print("Automatic Resets: " + vars.automaticResets.ToString());             
 }
 
 start
@@ -378,7 +391,33 @@ split
 
         if (vars.glitchlessRoute > 0 && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }                                                  
+        }     
+
+        // Bogan All Glitchless Routes (Dragon)   
+
+        if (vars.glitchlessRoute > 0 && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.boganDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.boganDragonSplitDelay > 0 &&
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
+        {                  
+                vars.boganDragonSplitDelay = 0.0;     
+                return true;        
+        }    
+
+        // LogicPQ All Glitchless Routes (Dragon)         
+
+        if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.logicpqDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.logicpqDragonSplitDelay > 0 &&
+                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
+        {                  
+                vars.logicpqDragonSplitDelay = 0.0;     
+                return true;        
+        }                                                                
 
         // tenshots Glitches Route (Dragon)
 
@@ -402,20 +441,33 @@ split
 
         if (vars.logicpqGlitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }                          
+        }       
 
-        // LogicPQ All Glitchless Routes (Dragon)         
+        // Bogan Glitches Route (Dragon)   
 
-        if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
-                vars.logicpqDragonSplitDelay = currentTime;
+        if (vars.glitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.boganDragonSplitDelay = currentTime;
 	        return false;
         }                
-                if (vars.logicpqDragonSplitDelay > 0 &&
-                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
+                if (vars.boganDragonSplitDelay > 0 &&
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
-                vars.logicpqDragonSplitDelay = 0.0;     
+                vars.boganDragonSplitDelay = 0.0;     
                 return true;        
-        }           
+        }         
+
+        // Bogan For LogicPQ Glitches Route (Dragon)   
+
+        if (vars.logicpqGlitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == 5 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.boganDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.boganDragonSplitDelay > 0 &&
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
+        {                  
+                vars.boganDragonSplitDelay = 0.0;     
+                return true;        
+        }                                     
 
         // LogicPQ Glitches Route (Dragon)         
 
@@ -477,4 +529,3 @@ reset
 
     return false;        
 }
-

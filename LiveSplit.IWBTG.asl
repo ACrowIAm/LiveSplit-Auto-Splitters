@@ -687,6 +687,7 @@ reset
 
     {
         // Sets variables back to default.      
+        vars.boganDragonSplitDelay = 0.0;            
         vars.logicpqDragonSplitDelay = 0.0;      
 
         return true;

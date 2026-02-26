@@ -14,8 +14,7 @@ state("stdrt")
     int wily: "stdrt.exe", 0x4837C, 0x268, 0x34;      
     int motherbrain: "stdrt.exe", 0x4837C, 0x268, 0x30;    
     int dragon: "stdrt.exe", 0x48380, 0x8D0, 0x1740, 0x246;      
-    int theguy: "stdrt.exe", 0x48380, 0x8D0, 0xA38, 0x242;    
-    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;         
+    int theguy: "stdrt.exe", 0x48380, 0x8D0, 0xA38, 0x242;            
 }
 
 startup
@@ -695,4 +694,5 @@ reset
 
     return false;        
 }
+
 

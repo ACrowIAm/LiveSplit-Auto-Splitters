@@ -5,9 +5,9 @@ state("stdrt")
 {
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x4837C, 0x1F0;
-    int nextFrameNumber: "stdrt.exe", 0x4837C, 0x1EC;  
-    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;             
-    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x54;              
+    int nextFrameNumber: "stdrt.exe", 0x4837C, 0x1EC;           
+    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x54; 
+    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;    
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
     int dracula: "stdrt.exe", 0x4837C, 0x268, 0x3C;            
@@ -695,3 +695,4 @@ reset
 
     return false;        
 }
+

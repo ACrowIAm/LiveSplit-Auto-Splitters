@@ -225,19 +225,19 @@ if (current.frameNumber == 1)
     }
 
     // Debug
-    print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    print("Glitches Route: " + vars.glitchesRoute.ToString());     
-    print("tenshots Glitchless Route: " + vars.tenshotsGlitchlessRoute.ToString());
-    print("tenshots Glitches Route: " + vars.tenshotsGlitchesRoute.ToString());              
-    print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
-    print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
-    print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
-    print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());           
-    print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
-    print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
-    print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
-    print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    print("Automatic Resets: " + vars.automaticResets.ToString());             
+    // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
+    // print("Glitches Route: " + vars.glitchesRoute.ToString());     
+    // print("tenshots Glitchless Route: " + vars.tenshotsGlitchlessRoute.ToString());
+    // print("tenshots Glitches Route: " + vars.tenshotsGlitchesRoute.ToString());              
+    // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
+    // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
+    // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
+    // print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());           
+    // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
+    // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
+    // print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
+    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
+    // print("Automatic Resets: " + vars.automaticResets.ToString());             
 }
 
 start

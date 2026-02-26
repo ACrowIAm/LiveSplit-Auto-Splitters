@@ -31,13 +31,13 @@ startup
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
     settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup"); 
     settings.Add("tenshotsglitchlessroute", false, "tenshots Glitchless Route (T,B,D,K,W,M)", "routesgroup"); 
-    settings.SetToolTip("tenshotsglitchlessroute", "Select his dragon split in the settings for his timing.");   
+    settings.SetToolTip("tenshotsglitchlessroute", "Has his 10000km and The Guy entrance split. Select his dragon split in the split settings for his timing.");   
     settings.Add("tenshotsglitchesroute", false, "tenshots Glitches Route (K,W,D,T,B)", "routesgroup"); 
-    settings.SetToolTip("tenshotsglitchesroute", "Select his dragon split in the settings for his timing.");                                                        
+    settings.SetToolTip("tenshotsglitchesroute", "Has his 10000km and The Guy entrance split. Select his dragon split in the split settings for his timing.");                                                        
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
-    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in the settings for his timing.");     
+    settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in the split settings for his timing.");     
     settings.Add("tenthousandkmsplit", false, "Glitchless & Glitches 10000km Split", "splitsgroup");         
-    settings.SetToolTip("tenthousandkmsplit", "Doesn't work with Logic's Glitches Route and tenshots's routes already have it by default.");                
+    settings.SetToolTip("tenthousandkmsplit", "Not setup with LogicPQ's Glitches Route and tenshots's routes already have it by default.");                
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
     settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight.");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
@@ -696,4 +696,3 @@ reset
 
     return false;        
 }
-

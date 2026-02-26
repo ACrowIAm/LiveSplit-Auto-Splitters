@@ -36,8 +36,8 @@ startup
     settings.SetToolTip("tenshotsglitchesroute", "Select his dragon split in the settings for his timing.");                                                        
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
     settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in the settings for his timing.");     
-    settings.Add("testenthousandkmsplit", false, "Glitchless & Glitches 10000km Split", "splitsgroup");         
-    settings.SetToolTip("testenthousandkmsplit", "Doesn't work with Logic's Glitches Route and tenshots's routes already have it by default.");                
+    settings.Add("tenthousandkmsplit", false, "Glitchless & Glitches 10000km Split", "splitsgroup");         
+    settings.SetToolTip("tenthousandkmsplit", "Doesn't work with Logic's Glitches Route and tenshots's routes already have it by default.");                
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
     settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight.");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
@@ -64,7 +64,7 @@ init
     vars.logicpqGlitchesRoute = false;     
     vars.dragonSplitIndex = 0;     
     vars.theguySplitIndex = 0;     
-    vars.tesTenThousandkmSplit = false;                  
+    vars.tenThousandkmSplit = false;                  
     vars.tenshotsDragonSplit = false;  
     vars.tesDragonSplit = false;     
     vars.boganDragonSplit = false;
@@ -129,16 +129,16 @@ if (settings["logicpqglitchesroute"]) {
         vars.logicpqGlitchesRoute = false;
     }                   
 
-if (settings["testenthousandkmsplit"]) {
+if (settings["tenthousandkmsplit"]) {
         vars.dragonSplitIndex = 7;   
         vars.theguySplitIndex = 8;  
-        vars.tesTenThousandkmSplit = true;             
+        vars.tenThousandkmSplit = true;             
 
     }
     else {
         vars.dragonSplitIndex = 6;  
         vars.theguySplitIndex = 7;                
-        vars.tesTenThousandkmSplit = false;        
+        vars.tenThousandkmSplit = false;        
     }         
 
 if (settings["tenshotsdragonsplit"]) {
@@ -232,7 +232,7 @@ if (current.frameNumber == 1)
     print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
     print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
     print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
-    print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
+    print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());           
     print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
     print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
     print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
@@ -454,7 +454,7 @@ split
 
         // Tesivonius 10000km Split
 
-        if (vars.tesTenThousandkmSplit == true && vars.tenshotsGlitchlessRoute == false && vars.tenshotsGlitchesRoute == false && vars.logicpqGlitchesRoute == false && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
+        if (vars.tenThousandkmSplit == true && vars.tenshotsGlitchlessRoute == false && vars.tenshotsGlitchesRoute == false && vars.logicpqGlitchesRoute == false && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
 	        return true;            
 	}  
 
@@ -490,7 +490,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 1000) 
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
@@ -503,7 +503,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 1000) 
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
@@ -578,7 +578,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 1000) 
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
@@ -591,7 +591,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 1000) 
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
@@ -604,7 +604,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 1000) 
+                currentTime >= vars.boganDragonSplitDelay + 3988) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        

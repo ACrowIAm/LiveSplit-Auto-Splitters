@@ -1,12 +1,12 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.4.1)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.4.4)
 
 
 state("stdrt")
 {
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x4837C, 0x1F0;
-    int nextFrameNumber: "stdrt.exe", 0x4837C, 0x1EC;        
-    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x54;            
+    int nextFrameNumber: "stdrt.exe", 0x4837C, 0x1EC;            
+    int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x54;              
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
     int dracula: "stdrt.exe", 0x4837C, 0x268, 0x3C;            
@@ -14,7 +14,8 @@ state("stdrt")
     int wily: "stdrt.exe", 0x4837C, 0x268, 0x34;      
     int motherbrain: "stdrt.exe", 0x4837C, 0x268, 0x30;    
     int dragon: "stdrt.exe", 0x48380, 0x8D0, 0x1740, 0x246;      
-    int theguy: "stdrt.exe", 0x48380, 0x8D0, 0xA38, 0x242;                    
+    int theguy: "stdrt.exe", 0x48380, 0x8D0, 0xA38, 0x242;     
+    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;                      
 }
 
 startup
@@ -28,11 +29,16 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
-    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");                                         
+    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup"); 
+    settings.Add("tenshotsglitchlessroute", false, "tenshots Glitchless Route (T,B,D,K,W,M)", "routesgroup"); 
+    settings.SetToolTip("tenshotsglitchlessroute", "Select his dragon split in the settings for his timing.");   
+    settings.Add("tenshotsglitchesroute", false, "tenshots Glitches Route (K,W,D,T,B)", "routesgroup"); 
+    settings.SetToolTip("tenshotsglitchesroute", "Select his dragon split in the settings for his timing.");                                                        
     settings.Add("logicpqglitchesroute", false, "LogicPQ Glitches Route (K,W,D,T,B)", "routesgroup"); 
     settings.SetToolTip("logicpqglitchesroute", "Select his dragon split in the settings for his timing.");     
-    settings.Add("testenthousandkmsplit", false, "Tesivonius 10000km Split", "splitsgroup");                  
-    settings.Add("tenshotsdragonsplit", false, " tenshots Dragon Split", "splitsgroup");    
+    settings.Add("testenthousandkmsplit", false, "Glitchless & Glitches 10000km Split", "splitsgroup");         
+    settings.SetToolTip("testenthousandkmsplit", "Doesn't work with Logic's Glitches Route and tenshots's routes already have it by default.");                
+    settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
     settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight.");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
     settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies.");  
@@ -53,10 +59,12 @@ init
     vars.selecterDelay = 0;          
     vars.glitchlessRoute = 0;        
     vars.glitchesRoute = false;
+    vars.tenshotsGlitchlessRoute = false;   
+    vars.tenshotsGlitchesRoute = false;           
+    vars.logicpqGlitchesRoute = false;     
     vars.dragonSplitIndex = 0;     
     vars.theguySplitIndex = 0;     
-    vars.tesTenThousandkmSplit = false;              
-    vars.logicpqGlitchesRoute = false;     
+    vars.tesTenThousandkmSplit = false;                  
     vars.tenshotsDragonSplit = false;  
     vars.tesDragonSplit = false;     
     vars.boganDragonSplit = false;
@@ -95,7 +103,31 @@ if (settings["glitchesroute"]) {
     }
     else {
         vars.glitchesRoute = false;
-    }             
+    }   
+
+if (settings["tenshotsglitchlessroute"]) {
+        vars.tenshotsGlitchlessRoute = true;
+
+    }
+    else {
+        vars.tenshotsGlitchlessRoute = false;
+    }        
+
+if (settings["tenshotsglitchesroute"]) {
+        vars.tenshotsGlitchesRoute = true;
+
+    }
+    else {
+        vars.tenshotsGlitchesRoute = false;
+    }       
+
+if (settings["logicpqglitchesroute"]) {
+        vars.logicpqGlitchesRoute = true;
+
+    }
+    else {
+        vars.logicpqGlitchesRoute = false;
+    }                   
 
 if (settings["testenthousandkmsplit"]) {
         vars.dragonSplitIndex = 7;   
@@ -107,15 +139,7 @@ if (settings["testenthousandkmsplit"]) {
         vars.dragonSplitIndex = 6;  
         vars.theguySplitIndex = 7;                
         vars.tesTenThousandkmSplit = false;        
-    }       
-
-if (settings["logicpqglitchesroute"]) {
-        vars.logicpqGlitchesRoute = true;
-
-    }
-    else {
-        vars.logicpqGlitchesRoute = false;
-    }       
+    }         
 
 if (settings["tenshotsdragonsplit"]) {
         vars.tenshotsDragonSplit = true;
@@ -201,17 +225,19 @@ if (current.frameNumber == 1)
     }
 
     // Debug
-    // print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
-    // print("Glitches Route: " + vars.glitchesRoute.ToString());     
-    // print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
-    // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
-    // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
-    // print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
-    // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
-    // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
-    // print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
-    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    // print("Automatic Resets: " + vars.automaticResets.ToString());             
+    print("Glitchless Route: " + vars.glitchlessRoute.ToString());       
+    print("Glitches Route: " + vars.glitchesRoute.ToString());     
+    print("tenshots Glitchless Route: " + vars.tenshotsGlitchlessRoute.ToString());
+    print("tenshots Glitches Route: " + vars.tenshotsGlitchesRoute.ToString());              
+    print("LogicPQ Glitches Route: " + vars.logicpqGlitchesRoute.ToString());            
+    print("Dragon Split Index: " + vars.dragonSplitIndex.ToString());      
+    print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
+    print("Tes 10000km Split: " + vars.tesTenThousandkmSplit.ToString());           
+    print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
+    print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
+    print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
+    print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
+    print("Automatic Resets: " + vars.automaticResets.ToString());             
 }
 
 start
@@ -355,7 +381,58 @@ split
 	}  
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 5 && old.mechabirdo != 1 && current.mechabirdo == 1) {
 	        return true;            
-	}                                                     
+	}  
+
+        // tenshots Glitchless Route (Tyson, Birdo, Dracula, Gief, Wily, Mother Brain)
+
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 0 && old.miketyson != 1 && current.miketyson == 1) {
+	        return true; 
+	}
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 1 && old.mechabirdo != 1 && current.mechabirdo == 1) {
+	        return true;            
+	}
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 2 && old.dracula != 1 && current.dracula == 1) {
+	        return true;            
+	}                
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 3 && old.kraidgief != 1 && current.kraidgief == 1) {
+	        return true;            
+	}     
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 4 && old.wily != 1 && current.wily == 1) {
+	        return true;            
+	}
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 5 && old.motherbrain != 1 && current.motherbrain == 1) {
+	        return true;            
+        }      
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
+	        return true;            
+        }   
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 8 && old.guyEntrance < 3196 && current.guyEntrance >= 3196 && current.guyEntrance <= 4021) {
+	        return true;            
+        }       
+
+        // tenshots Glitches Route (Gief, Wily, Dracula, Tyson, Birdo) 
+
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
+	        return true; 
+	}                 
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 1 && old.wily != 1 && current.wily == 1) {
+	        return true;           
+        }  
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 2 && old.dracula != 1 && current.dracula == 1) {
+	        return true;            
+	}    
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 3 && old.miketyson != 1 && current.miketyson == 1) {
+	        return true;            
+	}  
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 4 && old.mechabirdo != 1 && current.mechabirdo == 1) {
+	        return true;            
+	}    
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 5 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
+	        return true;            
+        }      
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 7 && old.guyEntrance < 3196 && current.guyEntrance >= 3196 && current.guyEntrance <= 4021) {
+	        return true;            
+        }       
 
         // LogicPQ Glitches Route (Gief, Wily, Dracula, Tyson, Birdo) 
 
@@ -377,7 +454,7 @@ split
 
         // Tesivonius 10000km Split
 
-        if (vars.tesTenThousandkmSplit == true && vars.logicpqGlitchesRoute == false && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
+        if (vars.tesTenThousandkmSplit == true && vars.tenshotsGlitchlessRoute == false && vars.tenshotsGlitchesRoute == false && vars.logicpqGlitchesRoute == false && timer.CurrentSplitIndex == 6 && old.nextFrameNumber != 9 && current.nextFrameNumber == 9) {
 	        return true;            
 	}  
 
@@ -385,13 +462,26 @@ split
         
         if (vars.glitchlessRoute > 0 && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
-        }         
+        }        
+
+        // tenshots For tenshots Glitchless Route (Dragon)
+        
+        if (vars.tenshotsGlitchlessRoute == true && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == 7 && old.frameNumber != 10 && current.frameNumber == 10) {
+	        return true;
+        }           
 
         // Tesivonius All Glitchless Routes (Dragon)   
 
         if (vars.glitchlessRoute > 0 && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
-        }     
+        }   
+
+        // Tesivonius For tenshots Glitchless Route (Dragon)
+        
+        if (vars.tenshotsGlitchlessRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+	        return true;
+        }           
+
 
         // Bogan All Glitchless Routes (Dragon)   
 
@@ -400,11 +490,24 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 3988) 
+                currentTime >= vars.boganDragonSplitDelay + 1000) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
         }    
+
+        // Bogan For tenshots Glitchless Route (Dragon)   
+
+        if (vars.tenshotsGlitchlessRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.boganDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.boganDragonSplitDelay > 0 &&
+                currentTime >= vars.boganDragonSplitDelay + 1000) 
+        {                  
+                vars.boganDragonSplitDelay = 0.0;     
+                return true;        
+        }          
 
         // LogicPQ All Glitchless Routes (Dragon)         
 
@@ -417,13 +520,32 @@ split
         {                  
                 vars.logicpqDragonSplitDelay = 0.0;     
                 return true;        
-        }                                                                
+        }   
+
+        // LogicPQ For tenshots Glitchless Route (Dragon)         
+
+        if (vars.tenshotsGlitchlessRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 7 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.logicpqDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.logicpqDragonSplitDelay > 0 &&
+                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
+        {                  
+                vars.logicpqDragonSplitDelay = 0.0;     
+                return true;        
+        }                                                                       
 
         // tenshots Glitches Route (Dragon)
 
         if (vars.glitchesRoute == true && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.frameNumber != 10 && current.frameNumber == 10) {
 	        return true;
         }         
+
+        // tenshots For tenshots Glitches Route (Dragon)
+
+        if (vars.tenshotsGlitchesRoute == true && vars.tenshotsDragonSplit == true && timer.CurrentSplitIndex == 6 && old.frameNumber != 10 && current.frameNumber == 10) {
+	        return true;
+        }             
 
         // tenshots For LogicPQ Glitches Route (Dragon)
 
@@ -436,6 +558,12 @@ split
         if (vars.glitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }
+
+        // Tesivonius For tenshots Glitches Route (Dragon)   
+
+        if (vars.tenshotsGlitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+	        return true;
+        }          
 
         // Tesivonius For LogicPQ Glitches Route (Dragon)   
 
@@ -450,11 +578,24 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 3988) 
+                currentTime >= vars.boganDragonSplitDelay + 1000) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
-        }         
+        } 
+
+        // Bogan For tenshots Glitches Route (Dragon)   
+
+        if (vars.tenshotsGlitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.boganDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.boganDragonSplitDelay > 0 &&
+                currentTime >= vars.boganDragonSplitDelay + 1000) 
+        {                  
+                vars.boganDragonSplitDelay = 0.0;     
+                return true;        
+        }                 
 
         // Bogan For LogicPQ Glitches Route (Dragon)   
 
@@ -463,7 +604,7 @@ split
 	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
-                currentTime >= vars.boganDragonSplitDelay + 3988) 
+                currentTime >= vars.boganDragonSplitDelay + 1000) 
         {                  
                 vars.boganDragonSplitDelay = 0.0;     
                 return true;        
@@ -480,7 +621,20 @@ split
         {                  
                 vars.logicpqDragonSplitDelay = 0.0;     
                 return true;        
-        }        
+        }   
+
+        // LogicPQ For tenshots Glitches Route (Dragon)         
+
+        if (vars.tenshotsGlitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == 6 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+                vars.logicpqDragonSplitDelay = currentTime;
+	        return false;
+        }                
+                if (vars.logicpqDragonSplitDelay > 0 &&
+                currentTime >= vars.logicpqDragonSplitDelay + 6680) 
+        {                  
+                vars.logicpqDragonSplitDelay = 0.0;     
+                return true;        
+        }                
 
         // LogicPQ For LogicPQ Glitches Route (Dragon)         
 
@@ -506,6 +660,18 @@ split
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == vars.theguySplitIndex && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }                           
+
+        // For tenshots Glitchless Route (The Guy)           
+
+        if (vars.tenshotsGlitchlessRoute == true && timer.CurrentSplitIndex == 9 && old.theguy != 4500 && current.theguy == 4500) {
+	        return true;     
+        }    
+
+        // For tenshots Glitches Route (The Guy)           
+
+        if (vars.tenshotsGlitchesRoute == true && timer.CurrentSplitIndex == 8 && old.theguy != 4500 && current.theguy == 4500) {
+	        return true;     
+        }          
 
         // For LogicPQ Glitches Route (The Guy)           
 

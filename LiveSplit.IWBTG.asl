@@ -253,7 +253,7 @@ split
         if (vars.splitGate > 0)
                 return false;      
 
-        // For debounces
+        // For split delays
         double currentTime = timer.CurrentTime.RealTime.GetValueOrDefault().TotalMilliseconds;                 
                   
                   
@@ -696,3 +696,4 @@ reset
 
     return false;        
 }
+

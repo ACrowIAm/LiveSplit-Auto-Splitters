@@ -20,7 +20,7 @@ startup
     settings.Add("splittiming2", false, "Forth Beep", "splittiminggroup"); 
     settings.Add("splittiming3", false, "Completion Time", "splittiminggroup");     
     settings.Add("splittiming4", false, "World Map", "splittiminggroup");  
-    settings.Add("bugwarning", false, "There's a bug with the stage 1 value where it goes to 1 during the stage sometimes", "splittiminggroup");    
+    settings.Add("bugwarning", false, "WARNING: There's a bug with the stage 1 value where it goes to 1 during the stage sometimes so it splits.");  
 
 }
 
@@ -180,4 +180,5 @@ reset
 
     return false;        
 }
+
 

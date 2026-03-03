@@ -135,6 +135,3 @@ reset
 
     return false;        
 }
-
-
-

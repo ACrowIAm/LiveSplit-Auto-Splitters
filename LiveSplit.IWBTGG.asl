@@ -1,15 +1,14 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.0.2)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.0.0)
 
 
-state("iwbtggv1d2b")
+state("iwbtgg")
 {
     // Pointer addresses
-    int start: "iwbtggv1d2b.exe", 0x2B82E98, 0x48;
-    int reset: "iwbtggv1d2b.exe", 0x2B82904, 0xA2;	
-    int stageEnter: "iwbtggv1d2b.exe", 0x2B7AE4C, 0x5;	    
-    int stage1: "iwbtggv1d2b.exe", 0x2B7BBFC, 0xDC;  
-    int stage2: "iwbtggv1d2b.exe", 0x2B7B17C, 0x5C;
-    int stage3: "iwbtggv1d2b.exe", 0x2B7AE4C, 0x19;
+    int start: "iwbtgg.exe", 0x2A49EBC, 0xF48;
+    int reset: "iwbtgg.exe", 0x2A1C4F4, 0xDF4;	
+    int stageEnter: "iwbtgg.exe", 0x2AE8A18, 0x605;	    
+    int stage1: "iwbtgg.exe", 0x2AE87B4, 0x2DC;  
+    int stage3: "iwbtgg.exe", 0x2AE8A18, 0x619;
 }
 
 startup
@@ -19,19 +18,15 @@ startup
     settings.Add("splittiming1", true, "Boss Door Entry", "splittiminggroup");  
     settings.Add("splittiming2", false, "Forth Beep", "splittiminggroup"); 
     settings.Add("splittiming3", false, "Completion Time", "splittiminggroup");     
-    settings.Add("splittiming4", false, "World Map", "splittiminggroup");  
-    settings.Add("bugwarning", false, "WARNING: There's a bug with the stage 1 value where it goes to 1 during the stage sometimes and it causes it to split.");  
-
+    settings.Add("splittiming4", false, "World Map", "splittiminggroup");          
+    settings.Add("bugwarning", false, "WARNING: There's a bug with the stage 1 value where it goes to 1 during the stage sometimes and causes it to split.");                              
 }
 
 init
 {
-    // Variables
-    vars.startCheck = 0;       
+    // Variables     
     vars.stage1GateTime = 0.0;
-    vars.stage2GateTime = 0.0;
     vars.stage1SplitDelay = 0.0;
-    vars.stage2SplitDelay = 0.0;
     vars.stage3SplitDelay = 0.0; 
     vars.lastSplitTime = 0.0;    
     vars.splitTiming = 0000.0; 
@@ -42,7 +37,7 @@ update
 
 // Setting toggle logic
 if (settings["splittiming1"]) {
-        vars.splitTiming = 0000;
+        vars.splitTiming = 0081;
     }
     else if (settings["splittiming2"]) {
         vars.splitTiming = 2012;
@@ -54,17 +49,8 @@ if (settings["splittiming1"]) {
         vars.splitTiming = 9167;
     }
     else {
-        vars.splitTiming = 0000;
+        vars.splitTiming = 0081;
     }   
-
-    // Start check logic
-    if (old.start != 1 && current.start == 1)
-        vars.startCheck = 1;
-        return true;  
-          
-    if (old.reset != 1 && current.reset == 1)
-        vars.startCheck = 0;
-        return true;   
 
     // Debug
     // print("Split Timing: " + vars.splitTiming.ToString());                        
@@ -107,37 +93,8 @@ split
             return true;
     }
 }
-
-    // Stage 2 split logic
-    if (timer.CurrentSplitIndex == 1)
-        {
-        if (old.stageEnter != 1 && current.stageEnter == 1)
-        {
-            vars.stage2GateTime = currentTime;     
-        }
-
-        bool stage2Allowed =
-            vars.stage2GateTime > 0 &&
-            currentTime >= vars.stage2GateTime + 8000.0;
-
-        if (stage2Allowed && old.stage2 != 1 && current.stage2 == 1)
-        {
-            vars.stage2SplitDelay = currentTime;
-            return false;
-        }
-
-        if (vars.stage2SplitDelay > 0 &&
-            currentTime >= vars.stage2SplitDelay + vars.splitTiming)
-        {
-            vars.stage2SplitDelay = 0.0;
-            vars.stage2GateTime = 0.0;
-            vars.lastSplitTime = currentTime;
-            return true;
-    }
-}
-
     // Stage 3 split logic     
-    if (timer.CurrentSplitIndex == 2)
+    if (timer.CurrentSplitIndex == 1)
     {
         if (old.stage3 != 1 && current.stage3 == 1)
         {
@@ -164,14 +121,12 @@ split
 reset
 {
     // Reset logic
-    if (vars.startCheck == 1 && old.reset != 1 && current.reset == 1)   
+    if (old.reset != 1 && current.reset == 1)   
     
     {
         // Sets variables back to default.
         vars.stage1GateTime = 0.0;
-        vars.stage2GateTime = 0.0; 
-        vars.stage1SplitDelay = 0.0;       
-        vars.stage2SplitDelay = 0.0;      
+        vars.stage1SplitDelay = 0.0;           
         vars.stage3SplitDelay = 0.0;
 
         return true;
@@ -180,6 +135,3 @@ reset
 
     return false;        
 }
-
-
-

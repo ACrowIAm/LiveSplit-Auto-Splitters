@@ -20,8 +20,9 @@ state("stdrt")
 
 startup
 {
-    // Settings creation  
-    refreshRate = 50;        
+    refreshRate = 50; 
+
+    // Settings creation         
     settings.Add("routesgroup", true, "Routes (All Categories)");
     settings.Add("splitsgroup", true, "Splits");         
     settings.Add("settingsgroup", true, "Settings");      

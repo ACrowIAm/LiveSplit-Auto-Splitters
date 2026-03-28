@@ -45,7 +45,7 @@ startup
     settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
     settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");               
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
-    settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or dragon setting selected at once!");   
+    settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or Dragon setting selected at once!");   
 
     // Sets refresh rate of script to 50 FPS.    
     refreshRate = 50;                                    

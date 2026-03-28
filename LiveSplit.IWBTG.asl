@@ -49,7 +49,7 @@ startup
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
     settings.Add("warning1", true, "IMPORTANT: Make sure you only select ONE route, or split setting at once!");      
 
-    // Sets the refresh rate of the script to the games native framerate  
+    // Sets the refresh rate of the script to the game's native framerate  
     refreshRate = 50;   
 }
 

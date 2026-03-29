@@ -48,7 +48,7 @@ startup
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
     settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or dragon setting selected at once!");   
 
-    // Sets refresh rate of script to 50 FPS.    
+    // Sets the refresh rate of the script to the game's native framerate.    
     refreshRate = 50;                                    
 }
 

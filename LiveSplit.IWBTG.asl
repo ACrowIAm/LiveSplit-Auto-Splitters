@@ -249,9 +249,9 @@ if (current.frameNumber == 1)
     // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString()); 
     // print("Guy Fight Entrance Split Index: " + vars.guyEntranceSplitIndex.ToString());            
     // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
-    // print("Glitches No Mother Brain Split: " + vars.noMBSplitGlitches.ToString());    
-    // print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());         
-    // print("Guy Fight Entrance Split: " + vars.guyEntranceSplit.ToString());                   
+    print("Glitches No Mother Brain Split: " + vars.noMBSplitGlitches.ToString());    
+    print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());         
+    print("Guy Fight Entrance Split: " + vars.guyEntranceSplit.ToString());                   
     // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
     // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
     // print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     

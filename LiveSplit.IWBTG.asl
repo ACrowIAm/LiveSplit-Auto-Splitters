@@ -113,7 +113,7 @@ if (settings["glitchesroute"]) {
 
 bool noMB = settings["glitchesnombsplit"];
 bool tenK = settings["tenthousandkmsplit"];
-bool guyEntrance = settings["guyfightentrancesplit"];
+bool guyEnt = settings["guyfightentrancesplit"];
 
 if (noMB) {
     vars.wilySplitIndex = 1;    
@@ -142,9 +142,9 @@ if (tenK) {
     vars.theguySplitIndex += 1;
 }
 
-vars.guyEntranceSplit = guyEntrance;
+vars.guyEntranceSplit = guyEnt;
 
-if (guyEntrance) {
+if (guyEnt) {
 
     vars.guyEntranceSplitIndex = noMB ? 6 : 7;
 

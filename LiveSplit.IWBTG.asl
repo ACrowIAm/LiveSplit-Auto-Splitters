@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.6.5)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.6.8)
 
 
 state("stdrt")
@@ -6,7 +6,8 @@ state("stdrt")
     // Pointer addresses        
     int frameNumber: "stdrt.exe", 0x4837C, 0x1F0;
     int nextFrameNumber: "stdrt.exe", 0x4837C, 0x1EC; 
-    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;                     
+    int guyEntrance: "stdrt.exe", 0x48380, 0x8D0, 0xAA0, 0x4C;  
+    int saveSelected: "stdrt.exe", 0x48380, 0x8D0, 0x2B0, 0x4C;                           
     int selecter: "stdrt.exe", 0x48380, 0x8D0, 0x2E0, 0x54;              
     int miketyson: "stdrt.exe", 0x4837C, 0x268, 0x2C;  
     int mechabirdo: "stdrt.exe", 0x4837C, 0x268, 0x38;
@@ -47,7 +48,7 @@ startup
     settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
     settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or dragon setting selected at once!");   
 
-    // Sets refresh rate of script to 50 FPS.    
+    // Sets the refresh rate of the script to the game's native framerate.   
     refreshRate = 50;                                    
 }
 
@@ -206,7 +207,25 @@ if (resetByNextFrame || resetByCurrentFrame)
     else if (vars.splitGate > 0)
     {
         vars.splitGate--;
-    }          
+    }     
+
+// Save Selected flag logic 
+if (current.saveSelected == 32)
+    {
+        vars.saveSelectedFlag = 1;
+    }       
+    else if (current.saveSelected == 288)
+    {
+        vars.saveSelectedFlag = 0;
+    }      
+    else if (current.saveSelected == 544)
+    {
+        vars.saveSelectedFlag = 0;
+    }  
+    else if (current.frameNumber == 1)
+    {
+        vars.saveSelectedFlag = 0;
+    }              
             
 // Selecter flag/delay logic 
 if (current.selecter == 239 && current.frameNumber == 6)
@@ -262,7 +281,7 @@ if (current.frameNumber == 1)
 start
 {
     // Start logic            
-    if (vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)
+    if (vars.saveSelectedFlag == 1 && vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)
 	        return true;	
 }
 
@@ -506,7 +525,7 @@ split
 reset
 {
     // Reset logic    
-    if (vars.automaticResets == true && vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
+    if (vars.automaticResets == true && vars.saveSelectedFlag == 1 && vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
 
     {
         // Sets variables back to default.      

@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.1.0)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.1.1)
 
 
 state("iwbtgg")
@@ -16,7 +16,8 @@ startup
     settings.Add("splittiming1", true, "Boss Door Entry", "splittiminggroup");  
     settings.Add("splittiming2", false, "Forth Beep", "splittiminggroup"); 
     settings.Add("splittiming3", false, "Completion Time", "splittiminggroup");     
-    settings.Add("splittiming4", false, "World Map", "splittiminggroup");                                      
+    settings.Add("splittiming4", false, "World Map", "splittiminggroup");    
+    settings.Add("warning1", true, "IMPORTANT: Don't use this piece of shit Auto Splitter."); 
 } 
 
 init

@@ -17,7 +17,7 @@ startup
     settings.Add("splittiming2", false, "Forth Beep", "splittiminggroup"); 
     settings.Add("splittiming3", false, "Completion Time", "splittiminggroup");     
     settings.Add("splittiming4", false, "World Map", "splittiminggroup");    
-    settings.Add("warning1", true, "IMPORTANT: Don't use this Auto Splitter."); 
+    settings.Add("bugswarning1", true, "WIP - Known bugs with splitting, use at your own risk."); 
 } 
 
 init

@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.6.5)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.6.6)
 
 
 state("stdrt")
@@ -22,8 +22,7 @@ startup
 {
     // Settings creation            
     settings.Add("routesgroup", true, "Routes (All Categories)");
-    settings.Add("splitsgroup", true, "Splits");         
-    settings.Add("settingsgroup", true, "Settings");      
+    settings.Add("splitsgroup", true, "Splits");              
     settings.Add("glitchlessroute1", true, "Glitchless Route 1 (T,B,D,K,W,M)", "routesgroup");
     settings.Add("glitchlessroute2", false, "Glitchless Route 2 (T,B,D,K,M,W)", "routesgroup");
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
@@ -43,8 +42,7 @@ startup
     settings.Add("bogandragonsplit", false, "Bogan Dragon Split", "splitsgroup");  
     settings.SetToolTip("bogandragonsplit", "Splits where he splits");      
     settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
-    settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");               
-    settings.Add("automaticresets", true, "Automatic Resets", "settingsgroup");        
+    settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");                      
     settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or dragon setting selected at once!");   
 
     // Sets the refresh rate of the script to the game's native framerate.     
@@ -76,8 +74,7 @@ init
     vars.boganDragonSplit = false;
     vars.boganDragonSplitDelay = 0.0;      
     vars.logicpqDragonSplit = false;
-    vars.logicpqDragonSplitDelay = 0.0;             
-    vars.automaticResets = false;      
+    vars.logicpqDragonSplitDelay = 0.0;                 
 }
 
 update
@@ -185,15 +182,7 @@ if (settings["logicpqdragonsplit"]) {
     }
     else {
         vars.logicpqDragonSplit = false;
-    }      
-
-if (settings["automaticresets"]) {
-        vars.automaticResets = true;
-
-    }
-    else {
-        vars.automaticResets = false;
-    }                  
+    }                     
 
 // Split gate logic
 bool resetByNextFrame  = (old.nextFrameNumber != 1 && current.nextFrameNumber == 1);
@@ -255,8 +244,7 @@ if (current.frameNumber == 1)
     // print("tenshots Dragon Split: " + vars.tenshotsDragonSplit.ToString());     
     // print("Tesivonius Dragon Split: " + vars.tesDragonSplit.ToString()); 
     // print("Bogan Dragon Split: " + vars.boganDragonSplit.ToString());     
-    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());      
-    // print("Automatic Resets: " + vars.automaticResets.ToString());             
+    // print("LogicPQ Dragon Split: " + vars.logicpqDragonSplit.ToString());                 
 }
 
 start
@@ -506,7 +494,7 @@ split
 reset
 {
     // Reset logic    
-    if (vars.automaticResets == true && vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
+    if (vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
 
     {
         // Sets variables back to default.      

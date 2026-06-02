@@ -448,7 +448,7 @@ split
 
         if (vars.glitchlessRoute > 0 && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.boganDragonSplitDelay = currentTime;
-	        	return false;
+	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
                 currentTime >= vars.boganDragonSplitDelay + 3988) 
@@ -461,7 +461,7 @@ split
 
         if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
-	        	return false;
+	        return false;
         }                
                 if (vars.logicpqDragonSplitDelay > 0 &&
                 currentTime >= vars.logicpqDragonSplitDelay + 6680) 
@@ -486,7 +486,7 @@ split
 
         if (vars.glitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.boganDragonSplitDelay = currentTime;
-	        	return false;
+	        return false;
         }                
                 if (vars.boganDragonSplitDelay > 0 &&
                 currentTime >= vars.boganDragonSplitDelay + 3988) 
@@ -499,7 +499,7 @@ split
 
         if (vars.glitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
-	        	return false;
+	        return false;
         }                
                 if (vars.logicpqDragonSplitDelay > 0 &&
                 currentTime >= vars.logicpqDragonSplitDelay + 6680) 

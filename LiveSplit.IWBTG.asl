@@ -1,4 +1,4 @@
-// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.6.6)
+// 𝙈𝙖𝙙𝙚 𝘽𝙮 𝘼𝘾𝙧𝙤𝙬𝙄𝘼𝙢 (v1.7.8)
 
 
 state("stdrt")
@@ -28,24 +28,26 @@ startup
     settings.Add("glitchlessroute3", false, "Glitchless Route 3 (K,M,W,D,T,B)", "routesgroup");    
     settings.Add("glitchlessroute4", false, "Glitchless Route 4 (K,W,D,M,T,B)", "routesgroup");     
     settings.Add("glitchlessroute5", false, "Glitchless Route 5 (K,M,T,B,D,W)", "routesgroup");       
-    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");    
+    settings.Add("glitchesroute", false, "Glitches Route (K,M,W,D,T,B)", "routesgroup");  
+    settings.Add("motherbraintransitionsplit", false, "Mother Brain Transition Split", "splitsgroup");
+    settings.SetToolTip("motherbraintransitionsplit", "Splits when jumping into the next area after collecting the orb (Logic's MB Split)");               
     settings.Add("glitchesnombsplit", false, "Glitches No Mother Brain Split", "splitsgroup"); 
-    settings.SetToolTip("glitchesnombsplit", "Removes the Mother Brain split for the glitches route.");           
+    settings.SetToolTip("glitchesnombsplit", "Removes the Mother Brain split for the glitches route");           
     settings.Add("tenthousandkmsplit", false, "10000km Split", "splitsgroup");         
-    settings.SetToolTip("tenthousandkmsplit", "Splits when you enter the minecart area.");      
+    settings.SetToolTip("tenthousandkmsplit", "Splits when you enter the minecart area");      
     settings.Add("guyfightentrancesplit", false, "The Guy Fight Entrance Split", "splitsgroup");         
-    settings.SetToolTip("guyfightentrancesplit", "tenshots's Split for when he enters the room for the boss fight.");               
+    settings.SetToolTip("guyfightentrancesplit", "tenshots's Split for when he enters the room for the boss fight");               
     settings.Add("tenshotsdragonsplit", false, "tenshots Dragon Split", "splitsgroup");    
-    settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight.");   
+    settings.SetToolTip("tenshotsdragonsplit", "Splits on the transition to the next area after the fight");   
     settings.Add("tesdragonsplit", true, "Tesivonius Dragon Split", "splitsgroup");  
-    settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies.");  
+    settings.SetToolTip("tesdragonsplit", "Splits when the Dragon flies into the wall and dies");  
     settings.Add("bogandragonsplit", false, "Bogan Dragon Split", "splitsgroup");  
     settings.SetToolTip("bogandragonsplit", "Splits where he splits");      
     settings.Add("logicpqdragonsplit", false, "LogicPQ Dragon Split", "splitsgroup");  
     settings.SetToolTip("logicpqdragonsplit", "Splits where he splits");                      
     settings.Add("warning1", true, "IMPORTANT: Make sure you only have ONE route, or dragon setting selected at once!");   
 
-    // Sets the refresh rate of the script to the game's native framerate.     
+    // Sets the refresh rate of the script to the game's native framerate    
     refreshRate = 50;                                    
 }
 
@@ -65,7 +67,8 @@ init
     vars.tenThousandkmSplitIndex = 0;          
     vars.dragonSplitIndex = 0;  
     vars.guyEntranceSplitIndex = 0;         
-    vars.theguySplitIndex = 0;     
+    vars.theguySplitIndex = 0;
+    vars.motherbrainTransitionSplit = false;           
     vars.noMBSplitGlitches = false;      
     vars.tenThousandkmSplit = false;   
     vars.guyEntranceSplit = false;                      
@@ -106,7 +109,15 @@ if (settings["glitchesroute"]) {
     }
     else {
         vars.glitchesRoute = false;
-    }                     
+    }   
+
+if (settings["motherbraintransitionsplit"]) {
+        vars.motherbrainTransitionSplit = true;
+
+    }
+    else {
+        vars.motherbrainTransitionSplit = false;
+    }                         
 
 bool noMB = settings["glitchesnombsplit"];
 bool tenK = settings["tenthousandkmsplit"];
@@ -238,6 +249,7 @@ if (current.frameNumber == 1)
     // print("Dragon Split Index: " + vars.dragonSplitIndex.ToString()); 
     // print("Guy Fight Entrance Split Index: " + vars.guyEntranceSplitIndex.ToString());            
     // print("The Guy Split Index: " + vars.theguySplitIndex.ToString()); 
+    // print("Mother Brain Transition Split: " + vars.motherbrainTransitionSplit.ToString());       
     // print("Glitches No Mother Brain Split: " + vars.noMBSplitGlitches.ToString());    
     // print("Tes 10000km Split: " + vars.tenThousandkmSplit.ToString());         
     // print("Guy Fight Entrance Split: " + vars.guyEntranceSplit.ToString());                   
@@ -256,7 +268,7 @@ start
 
 split
 {
-        // Blocks splits for 48 frames.
+        // Blocks splits for 48 frames
         if (vars.splitGate > 0)
                 return false;      
 
@@ -281,9 +293,12 @@ split
         if (vars.glitchlessRoute == 1 && timer.CurrentSplitIndex == 4 && old.wily != 1 && current.wily == 1) {
 	        return true;            
 	}
-        if (vars.glitchlessRoute == 1 && timer.CurrentSplitIndex == 5 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchlessRoute == 1 && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 5 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;            
-        }          
+        }       
+        if (vars.glitchlessRoute == 1 && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 5 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;            
+        }               
 
         // Glitchless Route 2 (Tyson, Birdo, Dracula, Gief, Mother Brain, Wily)
 
@@ -299,9 +314,12 @@ split
         if (vars.glitchlessRoute == 2 && timer.CurrentSplitIndex == 3 && old.kraidgief != 1 && current.kraidgief == 1) {
 	        return true;            
 	}     
-        if (vars.glitchlessRoute == 2 && timer.CurrentSplitIndex == 4 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchlessRoute == 2 && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 4 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;            
-	}
+        }       
+        if (vars.glitchlessRoute == 2 && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 4 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;            
+        } 
         if (vars.glitchlessRoute == 2 && timer.CurrentSplitIndex == 5 && old.wily != 1 && current.wily == 1) {
 	        return true;            
         }   
@@ -311,9 +329,12 @@ split
         if (vars.glitchlessRoute == 3 && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
 	        return true; 
 	}
-        if (vars.glitchlessRoute == 3 && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchlessRoute == 3 && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;            
-	}
+        }       
+        if (vars.glitchlessRoute == 3 && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 1 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;            
+        } 
         if (vars.glitchlessRoute == 3 && timer.CurrentSplitIndex == 2 && old.wily != 1 && current.wily == 1) {
 	        return true;            
 	}                
@@ -338,9 +359,12 @@ split
         if (vars.glitchlessRoute == 4 && timer.CurrentSplitIndex == 2 && old.dracula != 1 && current.dracula == 1) {
 	        return true;            
 	}                
-        if (vars.glitchlessRoute == 4 && timer.CurrentSplitIndex == 3 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchlessRoute == 4 && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 3 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;            
-	}     
+        }       
+        if (vars.glitchlessRoute == 4 && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 3 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;            
+        }     
         if (vars.glitchlessRoute == 4 && timer.CurrentSplitIndex == 4 && old.miketyson != 1 && current.miketyson == 1) {
 	        return true;            
 	}
@@ -353,9 +377,12 @@ split
         if (vars.glitchlessRoute == 5 && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
 	        return true; 
 	}
-        if (vars.glitchlessRoute == 5 && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchlessRoute == 5 && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;            
-	}
+        }       
+        if (vars.glitchlessRoute == 5 && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 1 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;            
+        }  
         if (vars.glitchlessRoute == 5 && timer.CurrentSplitIndex == 2 && old.miketyson != 1 && current.miketyson == 1) {
 	        return true;            
 	}                
@@ -374,9 +401,12 @@ split
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == 0 && old.kraidgief != 1 && current.kraidgief == 1) {
 	        return true; 
 	}    
-        if (vars.glitchesRoute == true && vars.noMBSplitGlitches == false && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
+        if (vars.glitchesRoute == true && vars.noMBSplitGlitches == false && vars.motherbrainTransitionSplit == false && timer.CurrentSplitIndex == 1 && old.motherbrain != 1 && current.motherbrain == 1) {
 	        return true;           
-        }              
+        }    
+        if (vars.glitchesRoute == true && vars.noMBSplitGlitches == false && vars.motherbrainTransitionSplit == true && timer.CurrentSplitIndex == 1 && old.nextFrameNumber != 4 && current.nextFrameNumber == 4) {
+	        return true;           
+        }                            
         if (vars.glitchesRoute == true && timer.CurrentSplitIndex == vars.wilySplitIndex && old.wily != 1 && current.wily == 1) {
 	        return true;           
         }  
@@ -398,7 +428,7 @@ split
 
         // tenshots Guy Fight Entrance Split
 
-        if (vars.guyEntranceSplit == true && timer.CurrentSplitIndex == vars.guyEntranceSplitIndex && old.guyEntrance < 3196 && current.guyEntrance >= 3196 && current.guyEntrance <= 4021) {
+        if (vars.guyEntranceSplit == true && timer.CurrentSplitIndex == vars.guyEntranceSplitIndex && current.frameNumber == 11 && old.guyEntrance < 3196 && current.guyEntrance >= 3196 && current.guyEntrance <= 4021) {
 	        return true;            
 	}         
 
@@ -410,13 +440,13 @@ split
 
         // Tesivonius All Glitchless Routes (Dragon)   
 
-        if (vars.glitchlessRoute > 0 && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }             
 
         // Bogan All Glitchless Routes (Dragon)   
 
-        if (vars.glitchlessRoute > 0 && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.boganDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -429,7 +459,7 @@ split
 
         // LogicPQ All Glitchless Routes (Dragon)         
 
-        if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchlessRoute > 0 && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -448,13 +478,13 @@ split
 
         // Tesivonius Glitches Route (Dragon)   
 
-        if (vars.glitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.tesDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
 	        return true;
         }              
 
         // Bogan Glitches Route (Dragon)   
 
-        if (vars.glitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.boganDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.boganDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -467,7 +497,7 @@ split
 
         // LogicPQ Glitches Route (Dragon)         
 
-        if (vars.glitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
+        if (vars.glitchesRoute == true && vars.logicpqDragonSplit == true && timer.CurrentSplitIndex == vars.dragonSplitIndex && current.frameNumber == 9 && old.dragon < 50000 && current.dragon >= 50000 && current.dragon <= 50021) {
                 vars.logicpqDragonSplitDelay = currentTime;
 	        return false;
         }                
@@ -480,13 +510,13 @@ split
 
         // All Glitchless Routes (The Guy)    
 
-        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == vars.theguySplitIndex && old.theguy != 4500 && current.theguy == 4500) {
+        if (vars.glitchlessRoute > 0 && timer.CurrentSplitIndex == vars.theguySplitIndex && current.frameNumber == 11 && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }            
 
         // Glitches Route (The Guy)           
 
-        if (vars.glitchesRoute == true && timer.CurrentSplitIndex == vars.theguySplitIndex && old.theguy != 4500 && current.theguy == 4500) {
+        if (vars.glitchesRoute == true && timer.CurrentSplitIndex == vars.theguySplitIndex && current.frameNumber == 11 && old.theguy != 4500 && current.theguy == 4500) {
 	        return true;     
         }                                                                                                                                                                                                                                                          
 }
@@ -497,7 +527,7 @@ reset
     if (vars.selecterFlag == 1 && old.nextFrameNumber != 1 && current.nextFrameNumber == 1)   
 
     {
-        // Sets variables back to default.      
+        // Sets variables back to default    
         vars.boganDragonSplitDelay = 0.0;            
         vars.logicpqDragonSplitDelay = 0.0;      
 
